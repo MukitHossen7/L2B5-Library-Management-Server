@@ -14,6 +14,7 @@ export interface IBook {
   description?: string;
   copies: number;
   available: boolean;
+  image: string;
 }
 
 export interface UpdateAvailabilityMethod extends Model<IBook> {

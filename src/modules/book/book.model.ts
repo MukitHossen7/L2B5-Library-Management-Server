@@ -47,6 +47,11 @@ const bookSchema = new Schema<IBook, UpdateAvailabilityMethod>(
       type: Boolean,
       default: true,
     },
+    image: {
+      type: String,
+      required: [true, "image must be required"],
+      trim: true,
+    },
   },
   {
     versionKey: false,
