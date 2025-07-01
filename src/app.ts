@@ -5,7 +5,7 @@ import routes from "./routes";
 export const app = express();
 
 //middleware
-app.use([cors(), express.json()]);
+app.use([cors({ origin: "http://localhost:5173/" }), express.json()]);
 
 //routes
 app.use(routes);
