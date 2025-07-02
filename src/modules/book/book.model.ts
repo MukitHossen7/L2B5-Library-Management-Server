@@ -1,4 +1,4 @@
-import { HydratedDocument, model, Schema } from "mongoose";
+import { model, Schema } from "mongoose";
 import { IBook, UpdateAvailabilityMethod } from "./book.interface";
 
 const bookSchema = new Schema<IBook, UpdateAvailabilityMethod>(
