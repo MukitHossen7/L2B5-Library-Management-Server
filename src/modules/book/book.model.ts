@@ -1,4 +1,4 @@
-import { model, Schema } from "mongoose";
+import { HydratedDocument, model, Schema } from "mongoose";
 import { IBook, UpdateAvailabilityMethod } from "./book.interface";
 
 const bookSchema = new Schema<IBook, UpdateAvailabilityMethod>(
@@ -79,6 +79,19 @@ bookSchema.static(
     }
   }
 );
+
+bookSchema.pre("findOneAndUpdate", async function (next) {
+  const update: any = this.getUpdate();
+
+  if (update?.copies === 0) {
+    update.available = false;
+  }
+  if (update?.copies > 0) {
+    update.available = true;
+  }
+  this.setUpdate(update);
+  next();
+});
 
 const Book = model<IBook, UpdateAvailabilityMethod>("Book", bookSchema);
 export default Book;
