@@ -26,21 +26,31 @@ const getAllBooks = async (req: Request, res: Response) => {
       sort = "desc",
       limit = 10,
       sortBy = "createdAt",
+      page = 1,
     } = req.query;
 
     const filters: any = {};
     if (filter) {
       filters.genre = filter;
     }
+    const skip = (Number(page) - 1) * Number(limit);
 
-    const data = await Book.find(filters)
+    const books = await Book.find(filters)
       .sort({ [sortBy as string]: sort === "desc" ? -1 : 1 })
+      .skip(skip)
       .limit(Number(limit));
 
+    const total = await Book.countDocuments(filters);
     res.status(201).json({
       success: true,
       message: "Books retrieved successfully",
-      data,
+      data: books,
+      meta: {
+        total,
+        page: Number(page),
+        limit: Number(limit),
+        totalPages: Math.ceil(total / Number(limit)),
+      },
     });
   } catch (error) {
     res.status(500).json({
