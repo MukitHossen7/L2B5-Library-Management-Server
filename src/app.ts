@@ -6,7 +6,13 @@ export const app = express();
 
 //middleware
 app.use([
-  cors({ origin: "http://localhost:5173", credentials: true }),
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://library-management-mukit.vercel.app",
+    ],
+    credentials: true,
+  }),
   express.json(),
 ]);
 

@@ -34,18 +34,27 @@ const createBook = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 });
 const getAllBooks = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { filter, sort = "desc", limit = 10, sortBy = "createdAt", } = req.query;
+        const { filter, sort = "desc", limit = 10, sortBy = "createdAt", page = 1, } = req.query;
         const filters = {};
         if (filter) {
             filters.genre = filter;
         }
-        const data = yield book_model_1.default.find(filters)
+        const skip = (Number(page) - 1) * Number(limit);
+        const books = yield book_model_1.default.find(filters)
             .sort({ [sortBy]: sort === "desc" ? -1 : 1 })
+            .skip(skip)
             .limit(Number(limit));
+        const total = yield book_model_1.default.countDocuments(filters);
         res.status(201).json({
             success: true,
             message: "Books retrieved successfully",
-            data,
+            data: books,
+            meta: {
+                total,
+                page: Number(page),
+                limit: Number(limit),
+                totalPages: Math.ceil(total / Number(limit)),
+            },
         });
     }
     catch (error) {

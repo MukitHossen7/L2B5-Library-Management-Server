@@ -55,6 +55,11 @@ const bookSchema = new mongoose_1.Schema({
         type: Boolean,
         default: true,
     },
+    image: {
+        type: String,
+        required: [true, "image must be required"],
+        trim: true,
+    },
 }, {
     versionKey: false,
     timestamps: true,
@@ -72,6 +77,19 @@ bookSchema.static("updateAvailability", function updateAvailabilityFunction(id) 
                 },
             }, { runValidators: true });
         }
+    });
+});
+bookSchema.pre("findOneAndUpdate", function (next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const update = this.getUpdate();
+        if ((update === null || update === void 0 ? void 0 : update.copies) === 0) {
+            update.available = false;
+        }
+        if ((update === null || update === void 0 ? void 0 : update.copies) > 0) {
+            update.available = true;
+        }
+        this.setUpdate(update);
+        next();
     });
 });
 const Book = (0, mongoose_1.model)("Book", bookSchema);

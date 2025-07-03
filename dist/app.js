@@ -9,7 +9,10 @@ const cors_1 = __importDefault(require("cors"));
 const routes_1 = __importDefault(require("./routes"));
 exports.app = (0, express_1.default)();
 //middleware
-exports.app.use([(0, cors_1.default)(), express_1.default.json()]);
+exports.app.use([
+    (0, cors_1.default)({ origin: "http://localhost:5173", credentials: true }),
+    express_1.default.json(),
+]);
 //routes
 exports.app.use(routes_1.default);
 exports.app.get("/", (req, res) => {
