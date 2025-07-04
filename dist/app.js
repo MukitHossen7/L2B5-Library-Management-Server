@@ -10,7 +10,13 @@ const routes_1 = __importDefault(require("./routes"));
 exports.app = (0, express_1.default)();
 //middleware
 exports.app.use([
-    (0, cors_1.default)({ origin: "http://localhost:5173", credentials: true }),
+    (0, cors_1.default)({
+        origin: [
+            "https://library-management-mukit.vercel.app",
+            "http://localhost:5173",
+        ],
+        credentials: true,
+    }),
     express_1.default.json(),
 ]);
 //routes
