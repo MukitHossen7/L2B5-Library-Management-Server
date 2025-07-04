@@ -61,6 +61,22 @@ const getAllBooks = async (req: Request, res: Response) => {
   }
 };
 
+const getHighestCopiesBooks = async (req: Request, res: Response) => {
+  try {
+    const books = await Book.find().sort({ copies: -1 }).limit(6);
+    res.status(201).json({
+      success: true,
+      message: "Book created successfully",
+      data: books,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Highest Books Copies retrieved failed",
+      success: false,
+      error,
+    });
+  }
+};
 const getBookByID = async (req: Request, res: Response) => {
   try {
     const { bookId } = req.params;
@@ -126,4 +142,5 @@ export const bookController = {
   getBookByID,
   updateBook,
   deleteBook,
+  getHighestCopiesBooks,
 };

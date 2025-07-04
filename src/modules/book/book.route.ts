@@ -5,6 +5,7 @@ const bookRoute = express.Router();
 
 bookRoute.post("/", bookController.createBook);
 bookRoute.get("/", bookController.getAllBooks);
+bookRoute.get("/highest-copies", bookController.getHighestCopiesBooks);
 bookRoute.get("/:bookId", bookController.getBookByID);
 bookRoute.put("/:bookId", bookController.updateBook);
 bookRoute.delete("/:bookId", bookController.deleteBook);
