@@ -65,6 +65,23 @@ const getAllBooks = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         });
     }
 });
+const getHighestCopiesBooks = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const books = yield book_model_1.default.find().sort({ copies: -1 }).limit(6);
+        res.status(201).json({
+            success: true,
+            message: "Book created successfully",
+            data: books,
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            message: "Highest Books Copies retrieved failed",
+            success: false,
+            error,
+        });
+    }
+});
 const getBookByID = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { bookId } = req.params;
@@ -129,4 +146,5 @@ exports.bookController = {
     getBookByID,
     updateBook,
     deleteBook,
+    getHighestCopiesBooks,
 };

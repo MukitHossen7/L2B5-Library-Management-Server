@@ -8,6 +8,7 @@ const book_controller_1 = require("./book.controller");
 const bookRoute = express_1.default.Router();
 bookRoute.post("/", book_controller_1.bookController.createBook);
 bookRoute.get("/", book_controller_1.bookController.getAllBooks);
+bookRoute.get("/highest-copies", book_controller_1.bookController.getHighestCopiesBooks);
 bookRoute.get("/:bookId", book_controller_1.bookController.getBookByID);
 bookRoute.put("/:bookId", book_controller_1.bookController.updateBook);
 bookRoute.delete("/:bookId", book_controller_1.bookController.deleteBook);
