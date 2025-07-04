@@ -43,7 +43,7 @@ git clone https://github.com/MukitHossen7/L2B5-Library-Management-API-With-Mongo
 ```
 
 ```
-cd L2B5-Library-Management-API-With-Mongoose
+cd L2B5-Library-Management-Server
 ```
 
 ```
@@ -224,6 +224,7 @@ Response Body:
 
 ## Dependencies
 
+- "cors": "^2.8.5",
 - "dotenv": "^16.5.0",
 - "express": "^5.1.0",
 - "mongoose": "^8.16.0",
