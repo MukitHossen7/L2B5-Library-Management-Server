@@ -12,6 +12,7 @@ exports.app = (0, express_1.default)();
 exports.app.use([
     (0, cors_1.default)({
         origin: [
+            "https://l2-b5-library-management-client.vercel.app",
             "https://library-management-mukit.vercel.app",
             "http://localhost:5173",
         ],
